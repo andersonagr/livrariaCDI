@@ -13,6 +13,11 @@ import br.com.caelum.livraria.modelo.Autor;
 @ViewScoped // javax.faces.view.viewScoped
 public class AutorBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Autor autor = new Autor();
 	
 	private Integer autorId;
