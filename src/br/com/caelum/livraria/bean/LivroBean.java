@@ -126,6 +126,7 @@ public class LivroBean implements Serializable {
 		System.out.println("Escrito por: " + autor.getNome());
 	}
 
+	
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 
