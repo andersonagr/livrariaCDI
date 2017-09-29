@@ -17,7 +17,18 @@
 			<p:menuitem value="autor" action="autor" icon="fa fa-fw fa-edit"/>
 			<p:menuitem value="Vendas" action="vendas?faces-redirect=true" icon="fa fa-fw fa-bar-chart" />
 			<p:separator/>
-			<p:menuitem icon="fa fa-fw fa-sign-out" value="Logout" action="#{loginBean.deslogar}"/>
+			<p:menuitem>
+			<p:commandButton icon="fa fa-fw fa-sign-out" value="Logout" update="@all"  action="#{loginBean.deslogar}">
+			 <p:confirm header="Confirmation" message="Deseja sair?" icon="ui-icon-alert" />
+			 </p:commandButton>
+		<p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+					 </p:menuitem>
+   
+ 
+   
 			</p:menuButton>
 <!-- 				<p:commandButton icon="fa fa-fw fa-remove" value="Logout" update="@all" action="#{loginBean.deslogar}"/> -->
 			</h:form>

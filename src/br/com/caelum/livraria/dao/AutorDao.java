@@ -1,5 +1,6 @@
 package br.com.caelum.livraria.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,10 +9,15 @@ import javax.persistence.EntityManager;
 
 import br.com.caelum.livraria.modelo.Autor;
 
-public class AutorDao {
+public class AutorDao implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Inject
-	EntityManager em; //
+	private EntityManager em; //
 
 	private DAO<Autor> dao;
 
@@ -24,16 +30,16 @@ public class AutorDao {
 		return this.dao.buscaPorId(autorId);
 	}
 
-	public void adiciona(Autor autor) {
-		this.dao.adiciona(autor);
+	public void adiciona(Autor t) {
+		this.dao.adiciona(t);
 	}
 
-	public void atualiza(Autor autor) {
-		this.dao.atualiza(autor);
+	public void atualiza(Autor t) {
+		this.dao.atualiza(t);
 	}
 
-	public void remove(Autor autor) {
-		this.dao.remove(autor);
+	public void remove(Autor t) {
+		this.dao.remove(t);
 	}
 
 	public List<Autor> listaTodos() {

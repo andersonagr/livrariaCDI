@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.caelum.livraria.dao.AutorDao;
-import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
 
 @Named
@@ -23,12 +22,9 @@ public class AutorBean implements Serializable {
 	private Autor autor = new Autor();
 	
 	@Inject
-	private AutorDao dao; //CDI faz new AutorDao() e injeta 
+	private AutorDao autordao; //CDI faz new AutorDao() e injeta 
 
-	public AutorBean(AutorDao dao) {
-		this.dao = dao;
-
-	}
+	
 
 	private Integer autorId;
 
@@ -41,30 +37,30 @@ public class AutorBean implements Serializable {
 	}
 
 	public void carregarAutorPelaId() {
-		this.autor = this.dao.buscaPorId(autorId);
+		this.autor = this.autordao.buscaPorId(autorId);
 	}
 
 	public String gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 
 		if (this.autor.getId() == null) {
-			this.dao.adiciona(this.autor);
+			this.autordao.adiciona(this.autor);
 		} else {
-			this.dao.atualiza(this.autor);
+			this.autordao.atualiza(this.autor);
 		}
 
 		this.autor = new Autor();
 
-		return "livro?faces-redirect=true";
+		return "autor?faces-redirect=true";
 	}
 
 	public void remover(Autor autor) {
 		System.out.println("Removendo autor " + autor.getNome());
-		this.dao.remove(autor);
+		this.autordao.remove(autor);
 	}
 
 	public List<Autor> getAutores() {
-		return this.dao.listaTodos();
+		return this.autordao.listaTodos();
 	}
 
 	public Autor getAutor() {

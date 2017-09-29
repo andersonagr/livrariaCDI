@@ -152,7 +152,14 @@
 				<p:column>
 					<f:facet name="header">Remover</f:facet>
 					<p:commandButton icon="fa fa-fw fa-remove" process="@form @this"
-						update="@form" value="remove" action="#{livroBean.remover(livro)}" />
+						update="@form" value="remove" action="#{livroBean.remover(livro)}">
+						 <p:confirm  header="Confirmation" message="Tem certeza que deseja 
+						 remover?"  icon="ui-icon-alert" />
+			 </p:commandButton>
+		<p:confirmDialog   global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
 				</p:column>
 			</p:dataTable>
 		</h:form>
