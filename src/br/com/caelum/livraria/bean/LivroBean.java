@@ -14,22 +14,24 @@ import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-
-import org.hibernate.annotations.ManyToAny;
+import javax.interceptor.Interceptor;
 
 import br.com.caelum.livraria.dao.AutorDao;
-import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.LivroDataModel;
+import br.com.caelum.livraria.tx.Transacional;
+
 
 @Named
 @ViewScoped
 public class LivroBean implements Serializable {
 
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private Livro livro = new Livro();
@@ -39,6 +41,9 @@ public class LivroBean implements Serializable {
 	
 	@Inject
 	private AutorDao autordao;
+	
+	@Inject
+	FacesContext context;
 	
 	private List<Livro> livros;
 
@@ -116,6 +121,7 @@ public class LivroBean implements Serializable {
 		return this.livro.getAutores();
 	}
 
+
 	public void carregarLivroPelaId() {
 		this.livro = livrodao.buscaPorId(this.livro.getId()); 
 	}
@@ -126,12 +132,12 @@ public class LivroBean implements Serializable {
 		System.out.println("Escrito por: " + autor.getNome());
 	}
 
-	
+	@Transacional
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 
 		if (livro.getAutores().isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage("autor",
+			context.addMessage("autor",
 					new FacesMessage("Livro deve ter pelo menos um Autor."));
 			return;
 		}
@@ -145,7 +151,7 @@ public class LivroBean implements Serializable {
 
 		this.livro = new Livro();
 	}
-
+	@Transacional
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro");
 
@@ -153,7 +159,7 @@ public class LivroBean implements Serializable {
 		this.livros = livrodao.listaTodos();
 		
 	}
-	
+
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removeAutor(autor);
 	}
