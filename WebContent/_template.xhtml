@@ -6,42 +6,84 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:head />
-	<h:body>
-		<div id="cabecalho">
-			<h:graphicImage library="img" name="logo.png" />
-			<p:growl id="messages" showDetail="true" autoUpdate="true" sticky="true"/>
-			<h:form rendered="#{usuarioLogado != null}">
-			<p:menuButton value="Menu">
-			<p:menuitem value="livros" action="livro" icon="fa fa-fw fa-edit"/>
-			<p:menuitem value="autor" action="autor" icon="fa fa-fw fa-edit"/>
-			<p:menuitem value="Vendas" action="vendas?faces-redirect=true" icon="fa fa-fw fa-bar-chart" />
-			<p:separator/>
-			<p:menuitem>
-			<p:commandButton icon="fa fa-fw fa-sign-out" value="Logout" update="@all"  action="#{loginBean.deslogar}">
-			 <p:confirm header="Confirmation" message="Deseja sair?" icon="ui-icon-alert" />
-			 </p:commandButton>
-		<p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    </p:confirmDialog>
-					 </p:menuitem>
-   
- 
-   
-			</p:menuButton>
-<!-- 				<p:commandButton icon="fa fa-fw fa-remove" value="Logout" update="@all" action="#{loginBean.deslogar}"/> -->
-			</h:form>
-			
-			<h1>
-				<ui:insert name="titulo"></ui:insert>
-			</h1>
-		</div>
-	
-		<div id="conteudo">
-			<ui:insert name="conteudo">
-			</ui:insert>
-		</div>
-	</h:body>
+<h:head />
+<h:body>
+
+	<div id="cabecalho">
+		<h:graphicImage library="img" name="logo.png" />
+		<p:growl id="messages" showDetail="true" autoUpdate="true"
+			sticky="true" />
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+	</div>
+	<p:layout style="min-width:400px;min-height:200px;">
+		<h:form rendered="#{usuarioLogado != null}">
+			<p:layoutUnit position="west" resizable="true" size="100"
+				minSize="40" maxSize="200">
+<p:menu>
+        <p:submenu label="Navegação">
+            <p:menuitem value="livros" action="livro" icon="fa fa-fw fa-edit" />
+            <p:menuitem value="autor" action="autor" icon="fa fa-fw fa-edit" />
+					<p:menuitem value="Vendas" action="vendas?faces-redirect=true"
+						icon="fa fa-fw fa-bar-chart" />
+        </p:submenu>
+        <p:submenu label="Logout">
+            <p:menuitem>
+            <p:commandButton icon="fa fa-fw fa-sign-out" value="Logout"
+							update="@all" action="#{loginBean.deslogar}">
+							<p:confirm header="Confirmation" message="Deseja sair?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+						</p:menuitem>
+        </p:submenu>
+    </p:menu>
+				<!-- <p:menuButton value="Menu">
+					<p:menuitem value="livros" action="livro" icon="fa fa-fw fa-edit" />
+					<p:menuitem value="autor" action="autor" icon="fa fa-fw fa-edit" />
+					<p:menuitem value="Vendas" action="vendas?faces-redirect=true"
+						icon="fa fa-fw fa-bar-chart" />
+					<p:separator />
+					<p:menuitem>
+						<p:commandButton icon="fa fa-fw fa-sign-out" value="Logout"
+							update="@all" action="#{loginBean.deslogar}">
+							<p:confirm header="Confirmation" message="Deseja sair?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:menuitem>
+
+
+
+				</p:menuButton> -->
+				<!-- 				<p:commandButton icon="fa fa-fw fa-remove" value="Logout" update="@all" action="#{loginBean.deslogar}"/> -->
+
+			</p:layoutUnit>
+		</h:form>
+		<p:layoutUnit position="center" size="100"
+				minSize="40" maxSize="200">
+
+			<div id="conteudo">
+				<ui:insert name="conteudo">
+				</ui:insert>
+			</div>
+		</p:layoutUnit>
+	</p:layout>
+
+
+
+
+</h:body>
 
 </html>
