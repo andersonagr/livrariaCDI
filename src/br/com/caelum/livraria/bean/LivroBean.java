@@ -79,7 +79,7 @@ public class LivroBean implements Serializable {
             Double precoColuna = (Double) valorColuna;
 
             // comparando os valores, compareTo devolve um valor negativo se o value é menor do que o filtro
-            return precoColuna.compareTo(precoDigitado) < 0;
+            return precoColuna.compareTo(precoDigitado) > 0;
 
         } catch (NumberFormatException e) {
 
@@ -166,7 +166,7 @@ public class LivroBean implements Serializable {
 	
 	public void carregar(Livro livro) {
 		System.out.println("Carregando livro");
-		this.livro = livro;
+		this.livro = this.livrodao.buscaPorId(livro.getId());
 	}
 	
 	public String formAutor() {

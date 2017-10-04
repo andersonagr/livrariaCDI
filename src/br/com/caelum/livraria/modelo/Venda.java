@@ -1,11 +1,23 @@
 package br.com.caelum.livraria.modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Venda {
 	
+	@javax.persistence.Id
+	@GeneratedValue
+	private Integer Id;
 	
+	@ManyToOne
 	private Livro livro;
 	private Integer quantidade;
 	
+	public Venda() {
+		
+	}
 	
 	public Venda(Livro livro, Integer quantidade) {
 		this.livro = livro;

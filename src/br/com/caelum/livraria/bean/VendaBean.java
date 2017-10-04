@@ -8,9 +8,11 @@ import java.util.Random;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDao;
@@ -25,17 +27,18 @@ public class VendaBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Inject
-	LivroDao livrodao;
+	EntityManager manager;
 
 	public BarChartModel getVendasModel() {
 
-	    BarChartModel model = new BarChartModel();
+	   BarChartModel model = new BarChartModel() ;
 model.setAnimate(true);
 	    ChartSeries vendaSerie = new ChartSeries();
-	    vendaSerie.setLabel("Vendas 2016");
+	    vendaSerie.setLabel("Vendas 2017");
 
-	    List<Venda> vendas = getVendas(1234);
+	    List<Venda> vendas = getVendas();
 
 	    for (Venda venda : vendas) {
 	        vendaSerie.set(venda.getLivro().getTitulo(), venda.getQuantidade());
@@ -43,34 +46,16 @@ model.setAnimate(true);
 
 	    model.addSeries(vendaSerie);
 
-	    ChartSeries vendaSerie2015 = new ChartSeries();
-	    vendaSerie2015.setLabel("Vendas 2015");
-
-	    vendas = getVendas(4321);
-
-	    for (Venda venda : vendas) {
-	        vendaSerie2015.set(venda.getLivro().getTitulo(),
-	                venda.getQuantidade());
-	    }
-
-	    model.addSeries(vendaSerie2015);
 
 	    return model;
 	}
 
-	public List<Venda> getVendas(long seed) {
+	public List<Venda> getVendas() {
 
-	    List<Livro> livros = livrodao.listaTodos();
-	    List<Venda> vendas = new ArrayList<Venda>();
-
-	    Random random = new Random(seed);
-
-	    for (Livro livro : livros) {
-	        Integer quantidade = random.nextInt(500);
-	        vendas.add(new Venda(livro, quantidade));
+		List<Venda> vendas = this.manager.createQuery("select v from Venda v", Venda.class).getResultList();
+		
+	return vendas;
 	    }
 
-	    return vendas;
-	}
 		
 }
